@@ -1,0 +1,22 @@
+.footerContainer {
+    padding: 16px;
+    background-color: #121212;
+    color: white;
+  }
+  
+  .iconButton {
+    color: white;
+    margin-right: 8px;
+  }
+  
+  .link {
+    display: block;
+    margin-bottom: 8px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,29 @@
+.headerContainer {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.logoIcon {
+    margin-right: 16px;
+}
+
+.logoText {
+    flex-grow: 1;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navButton {
+    color: white;
+    margin: 0 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.getStartedButton {
+    color: #e91e63;
+    border: 2px solid #e91e63;
+    &:hover {
+        background-color: #e91e63;
+        color: white;
+    }
+}

@@ -1,0 +1,53 @@
+.cardContainer {
+    min-width: 275px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .cardContainer:hover {
+    background-color: #2c2c2c;
+    transform: scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.8);
+  }
+  
+  .iconButton {
+    color: #03dac6;
+    background-color: rgba(3, 218, 198, 0.2);
+  }
+  
+  .iconButton:hover {
+    background-color: rgba(3, 218, 198, 0.3);
+  }
+  
+  .statusChip {
+    margin: 4px;
+  }
+  
+  .departureAirport, .arrivalAirport {
+    display: flex;
+    align-items: center;
+  }
+  
+  .statusChipOnTime {
+    background-color: #4caf50;
+    color: #ffffff;
+  }
+  
+  .statusChipDelayed {
+    background-color: #ff9800;
+    color: #ffffff;
+  }
+  
+  .statusChipCancelled {
+    background-color: #f44336;
+    color: #ffffff;
+  }
+  
+  .flightIcon {
+    color: #03dac6;
+  }
+  

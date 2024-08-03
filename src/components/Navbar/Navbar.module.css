@@ -1,0 +1,78 @@
+/* components/Navbar/Navbar.module.css */
+
+.navbarContainer {
+  background-color: #343a40;
+  padding: 0;
+}
+
+.navbarBrand {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.navbarBrandHighlight {
+  color: #e91e63;
+}
+
+.navbarToggler {
+  border: none;
+}
+
+.navbarTogglerIcon {
+  background-color: #fff;
+}
+
+.navbarCollapse {
+  background-color: #343a40;
+}
+
+.navItem {
+  margin: 0 15px;
+}
+
+.navLink {
+  color: #fff;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.navLinkActive {
+  color: #e91e63;
+}
+
+.signInButton {
+  background-color: #e91e63;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.signInButton:hover {
+  background-color: #d81b60;
+}
+
+.logOutButton {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.logOutButton:hover {
+  background-color: #5a6268;
+}
+
+.icon {
+  margin-left: 8px;
+}
