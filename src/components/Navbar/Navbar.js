@@ -118,6 +118,14 @@ const Navbar = () => {
                   </Link>
                 )}
               </div>
+              <button
+                type="button"
+                className="btn text-white p-0 px-4 d-none d-lg-block"
+                data-bs-toggle="modal"
+                data-bs-target="#searchModal"
+              >
+                <i className="fa fa-search"></i>
+              </button>
             </div>
           </div>
         </nav>

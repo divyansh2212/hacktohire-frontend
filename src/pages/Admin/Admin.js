@@ -7,21 +7,22 @@ import Navbar from '../../components/Navbar/Navbar';
 import axios from 'axios';
 import Footer from '../../components/Footer/Footer';
 import dummyFlights from './dummy.js';
-import {auth} from "../../firebase.js"
+import { auth } from "../../firebase.js";
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const AdminPage = () => {
     const [flights, setFlights] = useState([]);
-    const[token, setToken] = useState(null)
-    // const token = localStorage.getItem("token");
-    // console.log(token)
+    const [filteredFlights, setFilteredFlights] = useState([]);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        const func = async()=> {
+        const func = async () => {
             const user = auth.currentUser;
-            const fetchedtoken = await user?.getIdToken();
-            setToken(fetchedtoken)
-        }
-        func()
+            const fetchedToken = await user?.getIdToken();
+            setToken(fetchedToken);
+        };
+        func();
+
         const fetchFlights = async () => {
             try {
                 if (token) {
@@ -32,12 +33,15 @@ const AdminPage = () => {
                         }
                     });
                     setFlights(response.data);
+                    setFilteredFlights(response.data);
                 } else {
                     setFlights(dummyFlights);
+                    setFilteredFlights(dummyFlights);
                 }
             } catch (error) {
                 console.error("Error fetching flights:", error);
                 setFlights(dummyFlights);
+                setFilteredFlights(dummyFlights);
             }
         };
         fetchFlights();
@@ -45,6 +49,14 @@ const AdminPage = () => {
 
     const handleUpdateStatus = (id, newStatus) => {
         setFlights(flights.map(flight => flight.id === id ? { ...flight, status: newStatus } : flight));
+        setFilteredFlights(filteredFlights.map(flight => flight.id === id ? { ...flight, status: newStatus } : flight));
+    };
+
+    const handleSearch = (searchTerm) => {
+        const filtered = flights.filter(flight =>
+            flight.flightNumber.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredFlights(filtered);
     };
 
     return (
@@ -66,15 +78,22 @@ const AdminPage = () => {
                         Flight List
                     </Typography>
                 </Box>
+                <SearchBar onSearch={handleSearch} />
                 <Grid container spacing={3}>
-                    {flights.map((flight) => (
-                        <Grid item xs={12} sm={6} md={4} key={flight.id}>
-                            <FlightCard flight={flight} onUpdateStatus={handleUpdateStatus} isAdmin={true} />
-                        </Grid>
-                    ))}
+                    {filteredFlights.length > 0 ? (
+                        filteredFlights.map((flight) => (
+                            <Grid item xs={12} sm={6} md={4} key={flight.id}>
+                                <FlightCard flight={flight} onUpdateStatus={handleUpdateStatus} isAdmin={true} />
+                            </Grid>
+                        ))
+                    ) : (
+                        <Typography variant="h6" component="p" sx={{ margin: '20px' }}>
+                            No flights found.
+                        </Typography>
+                    )}
                 </Grid>
             </Container>
-            <Footer/>
+            <Footer />
         </>
     );
 };

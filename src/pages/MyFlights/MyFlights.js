@@ -5,14 +5,30 @@ import Grid from "@mui/material/Grid";
 import { Typography, Box } from "@mui/material";
 import Navbar from "../../components/Navbar/Navbar";
 import axios from "axios";
+import { auth } from "../../firebase.js";
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const MyFlights = () => {
   const [flights, setFlights] = useState([]);
   const [socket, setSocket] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState("Connecting...");
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(null);
+  const [filteredFlights, setFilteredFlights] = useState([]);
+
+  const handleSearch = (searchTerm) => {
+    const filtered = flights.filter(flight =>
+        flight.flightNumber.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredFlights(filtered);
+};
 
   useEffect(() => {
+    const func = async () => {
+      const user = auth.currentUser;
+      const fetchedToken = await user?.getIdToken();
+      setToken(fetchedToken);
+    };
+    func();
     if (!token) return;
 
     const fetchFlights = async () => {
@@ -24,6 +40,7 @@ const MyFlights = () => {
           },
         });
         setFlights(response.data);
+        setFilteredFlights(response.data)
       } catch (error) {
         console.error("Error fetching flights:", error);
       }
@@ -101,12 +118,19 @@ const MyFlights = () => {
             Flight List
           </Typography>
         </Box>
+        <SearchBar onSearch={handleSearch} />
         <Grid container spacing={3}>
-          {flights.map((flight) => (
-            <Grid item xs={12} sm={6} md={4} key={flight.id}>
-              <FlightCard flight={flight} isAdmin={false} />
-            </Grid>
-          ))}
+            {filteredFlights.length > 0 ? (
+                filteredFlights.map((flight) => (
+                  <Grid item xs={12} sm={6} md={4} key={flight.id}>
+                    <FlightCard flight={flight} isAdmin={false} />
+                  </Grid> 
+                ))
+            ) : (
+                <Typography variant="h6" component="p" sx={{ margin: '20px' }}>
+                    No flights found.
+                </Typography>
+            )}
         </Grid>
       </Container>
     </>

@@ -117,7 +117,7 @@ const FlightCard = ({ flight, onUpdateStatus, isAdmin }) => {
             <Grid item xs={12}>
               <Typography variant="body1" display="flex" alignItems="center">
                 <FlightIcon sx={{ mr: 1, color: "#03dac6" }} />
-                Flight ID: {flight.id}
+                Flight ID: {flight.flightNumber}
               </Typography>
             </Grid>
             <Grid item xs={12}>
